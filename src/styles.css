@@ -1,0 +1,96 @@
+body {
+  font-family: "Source Code Pro", monospace;
+}
+
+.card {
+  display: block;
+  margin: 0 auto;
+  border-color: black;
+  margin-top: 30px;
+}
+
+#cityForm {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.enter-city {
+  margin-left: 10px;
+  margin-right: 5px;
+  font-style: italic;
+}
+
+.search,
+#currentButton {
+  margin-left: 3px;
+  margin-right: 0;
+}
+
+#currentButton {
+  margin-left: 0px;
+}
+
+.location-info {
+  padding-left: 25px;
+}
+
+.city {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+.location-info {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+#tempValue {
+  font-size: 50px;
+}
+
+.units {
+  font-size: 20px;
+  font-weight: 400;
+  vertical-align: top;
+}
+.day-time,
+.weather {
+  font-weight: 200;
+  color: gray;
+}
+
+.extra-info .icon {
+  text-align: right;
+  padding-right: 25px;
+  font-size: 60px;
+}
+
+.wind,
+.precipitation {
+  font-size: 15px;
+  padding-right: 15px;
+  text-align: right;
+  color: gray;
+}
+
+.five-days {
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 30px;
+  padding-right: 0;
+}
+
+.five-days .icon {
+  font-size: 35px;
+  padding: 5px;
+}
+
+.five-days .day {
+  font-weight: bold;
+}
+
+.five-days .temp {
+  font-size: 12px;
+  font-weight: lighter;
+}
