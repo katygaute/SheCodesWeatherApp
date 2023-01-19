@@ -96,6 +96,7 @@ body {
 }
 
 .GitHubLink {
+  margin: 0 auto;
   text-align: center;
   font-size: 15px;
 }
