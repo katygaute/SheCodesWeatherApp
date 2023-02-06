@@ -1,5 +1,4 @@
 //API key
-// let apiKey = "1ee4264117b73d2263eecd562f31ef5c";
 let apiKey = "003c1349c7c772f2oc3fe4dtdec8a8bb";
 
 //INSERT USER'S CURRENT TIME AND DAY
@@ -34,6 +33,17 @@ function cityWeather(response) {
   let cityTempDisplay = document.querySelector("#tempValue");
   cityTempDisplay.innerHTML = cityTempValue;
 }
+
+//city weather icon
+function cityIcon(result) {
+  let currentIconURL = result.data.condition.icon_url;
+  console.log(currentIconURL);
+  let currentIcon = document.querySelector("#current-weather-icon");
+  currentIcon.innerHTML = `<img
+  src="${currentIconURL}"
+  />`;
+}
+
 // city header & API
 function submitCity(event) {
   event.preventDefault();
@@ -50,6 +60,7 @@ function submitCity(event) {
   // let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputClean}&appid=${apiKey}&units=${unit}`;
   let APIurl = `https://api.shecodes.io/weather/v1/current?query=${cityInputClean}&key=${apiKey}&units=${unit}`;
   axios.get(APIurl).then(cityWeather);
+  axios.get(APIurl).then(cityIcon);
 }
 
 //add event to city form
@@ -66,11 +77,18 @@ function displayLocalTemp(result) {
 
 //display the user's current locations
 function displayLocation(result) {
-  console.log(result);
   let locationName = result.data.city;
-  console.log(locationName);
   let cityString = document.querySelector(".city");
   cityString.innerHTML = locationName;
+}
+
+//retrieve corresponding weather icon
+function displayIcon(result) {
+  let currentIconURL = result.data.condition.icon_url;
+  let currentIcon = document.querySelector("#current-weather-icon");
+  currentIcon.innerHTML = `<img
+  src="${currentIconURL}"
+  />`;
 }
 
 //retrieve coordinates & APIs
@@ -78,14 +96,11 @@ function coords(response) {
   let lat = response.coords.latitude;
   let lon = response.coords.longitude;
   let unit = "metric";
-  //API for local weather
-  // let APIurl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
+  //API for local weather, location name, and icon
   let APIurl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(APIurl).then(displayLocalTemp);
-  //API for location name
-  //let APIlocation = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-  let APIlocation = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
-  axios.get(APIlocation).then(displayLocation);
+  axios.get(APIurl).then(displayLocation);
+  axios.get(APIurl).then(displayIcon);
 }
 
 //get user's geolocation
