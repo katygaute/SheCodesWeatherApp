@@ -34,6 +34,13 @@ function cityWeather(response) {
   cityTempDisplay.innerHTML = cityTempValue;
 }
 
+//city wind speed
+function cityWindSpeed(result) {
+  let windSpeed = Math.round(result.data.wind.speed);
+  console.log(windSpeed);
+  let speedString = document.querySelector("#currentSpeed");
+  speedString.innerHTML = windSpeed;
+}
 //city weather icon
 function cityIcon(result) {
   let currentIconURL = result.data.condition.icon_url;
@@ -61,6 +68,7 @@ function submitCity(event) {
   let APIurl = `https://api.shecodes.io/weather/v1/current?query=${cityInputClean}&key=${apiKey}&units=${unit}`;
   axios.get(APIurl).then(cityWeather);
   axios.get(APIurl).then(cityIcon);
+  axios.get(APIurl).then(cityWindSpeed);
 }
 
 //add event to city form
@@ -82,6 +90,13 @@ function displayLocation(result) {
   cityString.innerHTML = locationName;
 }
 
+function displayWindSpeed(result) {
+  let windSpeed = Math.round(result.data.wind.speed);
+  console.log(windSpeed);
+  let speedString = document.querySelector("#currentSpeed");
+  speedString.innerHTML = windSpeed;
+}
+
 //retrieve corresponding weather icon
 function displayIcon(result) {
   let currentIconURL = result.data.condition.icon_url;
@@ -101,6 +116,7 @@ function coords(response) {
   axios.get(APIurl).then(displayLocalTemp);
   axios.get(APIurl).then(displayLocation);
   axios.get(APIurl).then(displayIcon);
+  axios.get(APIurl).then(displayWindSpeed);
 }
 
 //get user's geolocation
