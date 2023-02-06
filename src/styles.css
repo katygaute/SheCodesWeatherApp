@@ -54,7 +54,12 @@ body {
   font-weight: 400;
   vertical-align: top;
 }
-.day-time,
+.last-updated {
+  font-weight: 200;
+  color: gray;
+  font-size: 15px;
+}
+
 .weather {
   font-weight: 200;
   color: gray;
@@ -67,7 +72,7 @@ body {
 }
 
 .wind,
-.precipitation {
+.humidity {
   font-size: 15px;
   padding-right: 15px;
   text-align: right;

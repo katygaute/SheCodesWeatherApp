@@ -3,17 +3,6 @@ let apiKey = "003c1349c7c772f2oc3fe4dtdec8a8bb";
 
 //INSERT USER'S CURRENT TIME AND DAY
 let currentDate = new Date();
-let dayNum = currentDate.getDay();
-let days = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = days[dayNum];
 let hour = currentDate.getHours();
 let minutes = currentDate.getMinutes();
 if (minutes < 10) {
@@ -21,8 +10,8 @@ if (minutes < 10) {
   minutes = zero + minutes;
 }
 let time = `${hour}:${minutes}`;
-let dayTime = document.querySelector(".day-time");
-dayTime.innerHTML = `${day} ${time}`;
+let userTime = document.querySelector("#user-current-time");
+userTime.innerHTML = time;
 
 //SEARCH FOR CITY FEATURE (W/ CITY'S TEMPERATURE)
 //retrieve the temperature of input city
@@ -41,6 +30,15 @@ function cityWindSpeed(result) {
   let speedString = document.querySelector("#currentSpeed");
   speedString.innerHTML = windSpeed;
 }
+
+//city humidity
+function cityHumidity(result) {
+  let humidity = Math.round(result.data.temperature.humidity);
+  console.log(humidity);
+  let humidString = document.querySelector("#humidityPercent");
+  humidString.innerHTML = humidity;
+}
+
 //city weather icon
 function cityIcon(result) {
   let currentIconURL = result.data.condition.icon_url;
@@ -69,6 +67,7 @@ function submitCity(event) {
   axios.get(APIurl).then(cityWeather);
   axios.get(APIurl).then(cityIcon);
   axios.get(APIurl).then(cityWindSpeed);
+  axios.get(APIurl).then(cityHumidity);
 }
 
 //add event to city form
@@ -90,11 +89,18 @@ function displayLocation(result) {
   cityString.innerHTML = locationName;
 }
 
+//user location wind speed
 function displayWindSpeed(result) {
   let windSpeed = Math.round(result.data.wind.speed);
-  console.log(windSpeed);
   let speedString = document.querySelector("#currentSpeed");
   speedString.innerHTML = windSpeed;
+}
+
+//user location humidity
+function displayHumidity(result) {
+  let humidity = Math.round(result.data.temperature.humidity);
+  let humidString = document.querySelector("#humidityPercent");
+  humidString.innerHTML = humidity;
 }
 
 //retrieve corresponding weather icon
@@ -117,6 +123,7 @@ function coords(response) {
   axios.get(APIurl).then(displayLocation);
   axios.get(APIurl).then(displayIcon);
   axios.get(APIurl).then(displayWindSpeed);
+  axios.get(APIurl).then(displayHumidity);
 }
 
 //get user's geolocation
