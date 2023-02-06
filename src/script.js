@@ -28,7 +28,8 @@ dayTime.innerHTML = `${day} ${time}`;
 //SEARCH FOR CITY FEATURE (W/ CITY'S TEMPERATURE)
 //retrieve the temperature of input city
 function cityWeather(response) {
-  let cityTempValue = Math.round(response.data.main.temp);
+  console.log(response);
+  let cityTempValue = Math.round(response.data.temperature.current);
   //display the temperature in the html
   let cityTempDisplay = document.querySelector("#tempValue");
   cityTempDisplay.innerHTML = cityTempValue;
@@ -58,14 +59,16 @@ newCity.addEventListener("submit", submitCity);
 //USER'S CURRENT LOCATION
 //display the user's location temperature in the html
 function displayLocalTemp(result) {
-  let localTemp = Math.round(result.data.main.temp);
+  let localTemp = Math.round(result.data.temperature.current);
   let temperature = document.querySelector("#tempValue");
   temperature.innerHTML = localTemp;
 }
 
 //display the user's current locations
 function displayLocation(result) {
-  let locationName = result.data[0].name;
+  console.log(result);
+  let locationName = result.data.city;
+  console.log(locationName);
   let cityString = document.querySelector(".city");
   cityString.innerHTML = locationName;
 }
@@ -80,7 +83,8 @@ function coords(response) {
   let APIurl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(APIurl).then(displayLocalTemp);
   //API for location name
-  let APIlocation = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  //let APIlocation = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  let APIlocation = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(APIlocation).then(displayLocation);
 }
 
