@@ -50,11 +50,17 @@ body {
 }
 
 .units {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 400;
   position: relative;
   top: -34px;
 }
+
+.active {
+  color: rgb(33, 33, 33);
+  cursor: default;
+}
+
 .last-updated {
   font-weight: 200;
   color: gray;
@@ -80,7 +86,7 @@ body {
   color: gray;
 }
 
-.five-days {
+/* .five-days {
   text-align: center;
   padding-top: 60px;
   padding-bottom: 30px;
@@ -99,7 +105,7 @@ body {
 .five-days .temp {
   font-size: 12px;
   font-weight: lighter;
-}
+} */
 
 #GitHubLink {
   text-align: center;

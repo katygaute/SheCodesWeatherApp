@@ -131,7 +131,6 @@ function Userlocation(event) {
 }
 
 // TEMPERATURE CONVERSION
-
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#tempValue");
@@ -167,5 +166,3 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
-
-defaultSearch("London");
