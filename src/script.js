@@ -1,5 +1,6 @@
 //API key
-let apiKey = "1ee4264117b73d2263eecd562f31ef5c";
+// let apiKey = "1ee4264117b73d2263eecd562f31ef5c";
+let apiKey = "003c1349c7c772f2oc3fe4dtdec8a8bb";
 
 //INSERT USER'S CURRENT TIME AND DAY
 let currentDate = new Date();
@@ -45,7 +46,8 @@ function submitCity(event) {
 
   //API for input city
   let unit = "metric";
-  let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputClean}&appid=${apiKey}&units=${unit}`;
+  // let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputClean}&appid=${apiKey}&units=${unit}`;
+  let APIurl = `https://api.shecodes.io/weather/v1/current?query=${cityInputClean}&key=${apiKey}&units=${unit}`;
   axios.get(APIurl).then(cityWeather);
 }
 
@@ -74,7 +76,8 @@ function coords(response) {
   let lon = response.coords.longitude;
   let unit = "metric";
   //API for local weather
-  let APIurl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
+  // let APIurl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${unit}`;
+  let APIurl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(APIurl).then(displayLocalTemp);
   //API for location name
   let APIlocation = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`;
