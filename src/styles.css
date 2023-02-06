@@ -50,9 +50,10 @@ body {
 }
 
 .units {
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 400;
-  vertical-align: top;
+  position: relative;
+  top: -34px;
 }
 .last-updated {
   font-weight: 200;

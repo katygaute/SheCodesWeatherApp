@@ -15,12 +15,13 @@ userTime.innerHTML = time;
 
 //SEARCH FOR CITY FEATURE (W/ CITY'S TEMPERATURE)
 //retrieve the temperature of input city
-function cityWeather(response) {
-  console.log(response);
-  let cityTempValue = Math.round(response.data.temperature.current);
+function cityWeather(result) {
+  console.log(result);
+  let cityTempValue = Math.round(result.data.temperature.current);
   //display the temperature in the html
   let cityTempDisplay = document.querySelector("#tempValue");
   cityTempDisplay.innerHTML = cityTempValue;
+  celsiusTemperature = result.data.temperature.current;
 }
 
 //city wind speed
@@ -70,16 +71,13 @@ function submitCity(event) {
   axios.get(APIurl).then(cityHumidity);
 }
 
-//add event to city form
-let newCity = document.querySelector("#cityForm");
-newCity.addEventListener("submit", submitCity);
-
 //USER'S CURRENT LOCATION
 //display the user's location temperature in the html
 function displayLocalTemp(result) {
   let localTemp = Math.round(result.data.temperature.current);
   let temperature = document.querySelector("#tempValue");
   temperature.innerHTML = localTemp;
+  celsiusTemperature = result.data.temperature.current;
 }
 
 //display the user's current locations
@@ -132,25 +130,42 @@ function Userlocation(event) {
   navigator.geolocation.getCurrentPosition(coords);
 }
 
+// TEMPERATURE CONVERSION
+
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#tempValue");
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#tempValue");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
+let celsiusTemperature = null;
+
+//EVENTS
+
 //add event to current button
 let currentPosition = document.querySelector("#current-location-button");
 currentPosition.addEventListener("click", Userlocation);
 
-// TEMPERATURE CONVERSION
-//function changeToCelsius(event) {
-//event.preventDefault();
-//let temperature = document.querySelector("#tempValue");
-//temperature.innerHTML = "1";
-//}
+//add event to city form
+let newCity = document.querySelector("#cityForm");
+newCity.addEventListener("submit", submitCity);
 
-//function changeToFahrenheit(event) {
-// event.preventDefault();
-// let temperature = document.querySelector("#tempValue");
-// temperature.innerHTML = "34";
-//}
+//add events to C & F
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
-//let celsius = document.querySelector("#celsius-link");
-//let fahrenheit = document.querySelector("#fahrenheit-link");
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
-//celsius.addEventListener("click", changeToCelsius);
-//fahrenheit.addEventListener("click", changeToFahrenheit);
+defaultSearch("London");
