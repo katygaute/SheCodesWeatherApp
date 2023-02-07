@@ -1,17 +1,21 @@
 //API key
 let apiKey = "003c1349c7c772f2oc3fe4dtdec8a8bb";
 
+//FUNCTIONS
+
 //INSERT USER'S CURRENT TIME AND DAY
-let currentDate = new Date();
-let hour = currentDate.getHours();
-let minutes = currentDate.getMinutes();
-if (minutes < 10) {
-  let zero = "0";
-  minutes = zero + minutes;
+function time() {
+  let currentDate = new Date();
+  let hour = currentDate.getHours();
+  let minutes = currentDate.getMinutes();
+  if (minutes < 10) {
+    let zero = "0";
+    minutes = zero + minutes;
+  }
+  let time = `${hour}:${minutes}`;
+  let userTime = document.querySelector("#user-current-time");
+  userTime.innerHTML = time;
 }
-let time = `${hour}:${minutes}`;
-let userTime = document.querySelector("#user-current-time");
-userTime.innerHTML = time;
 
 //SEARCH FOR CITY FEATURE (W/ CITY'S TEMPERATURE)
 //retrieve the temperature of input city
@@ -69,6 +73,7 @@ function submitCity(event) {
   axios.get(APIurl).then(cityIcon);
   axios.get(APIurl).then(cityWindSpeed);
   axios.get(APIurl).then(cityHumidity);
+  time();
 }
 
 //USER'S CURRENT LOCATION
@@ -128,6 +133,7 @@ function coords(response) {
 function Userlocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(coords);
+  time();
 }
 
 // TEMPERATURE CONVERSION
@@ -150,7 +156,7 @@ function displayCelsiusTemperature(event) {
 
 let celsiusTemperature = null;
 
-//EVENTS
+//EVENTS - CALL FUNCTIONS
 
 //add event to current button
 let currentPosition = document.querySelector("#current-location-button");
@@ -166,3 +172,5 @@ fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
+
+time();
