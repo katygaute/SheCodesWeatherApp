@@ -76,6 +76,21 @@ function submitCity(event) {
   time();
 }
 
+function defaultCity(result) {
+  let cityString = document.querySelector(".city");
+  //edit the displayed city string
+  cityString.innerHTML = result;
+  //API for input city
+  let unit = "metric";
+  // let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputClean}&appid=${apiKey}&units=${unit}`;
+  let APIurl = `https://api.shecodes.io/weather/v1/current?query=${result}&key=${apiKey}&units=${unit}`;
+  axios.get(APIurl).then(cityWeather);
+  axios.get(APIurl).then(cityIcon);
+  axios.get(APIurl).then(cityWindSpeed);
+  axios.get(APIurl).then(cityHumidity);
+  time();
+}
+
 //USER'S CURRENT LOCATION
 //display the user's location temperature in the html
 function displayLocalTemp(result) {
@@ -174,3 +189,4 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 time();
+defaultCity("London");
