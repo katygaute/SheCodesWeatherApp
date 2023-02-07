@@ -3,7 +3,7 @@ let apiKey = "003c1349c7c772f2oc3fe4dtdec8a8bb";
 
 //FUNCTIONS
 
-//INSERT USER'S CURRENT TIME AND DAY
+//Retrieve user's current time
 function time() {
   let currentDate = new Date();
   let hour = currentDate.getHours();
@@ -17,8 +17,7 @@ function time() {
   userTime.innerHTML = time;
 }
 
-//SEARCH FOR CITY FEATURE (W/ CITY'S TEMPERATURE)
-//retrieve the temperature of input city
+//Retrive submitted city's temperature
 function cityWeather(result) {
   console.log(result);
   let cityTempValue = Math.round(result.data.temperature.current);
@@ -28,7 +27,7 @@ function cityWeather(result) {
   celsiusTemperature = result.data.temperature.current;
 }
 
-//city wind speed
+//Retrive submitted city's windspeed
 function cityWindSpeed(result) {
   let windSpeed = Math.round(result.data.wind.speed);
   console.log(windSpeed);
@@ -36,7 +35,7 @@ function cityWindSpeed(result) {
   speedString.innerHTML = windSpeed;
 }
 
-//city humidity
+//Retrive submitted city's humidity
 function cityHumidity(result) {
   let humidity = Math.round(result.data.temperature.humidity);
   console.log(humidity);
@@ -44,7 +43,7 @@ function cityHumidity(result) {
   humidString.innerHTML = humidity;
 }
 
-//city weather icon
+//Retrive submitted city's weather icon
 function cityIcon(result) {
   let currentIconURL = result.data.condition.icon_url;
   console.log(currentIconURL);
@@ -54,45 +53,36 @@ function cityIcon(result) {
   />`;
 }
 
-// city header & API
+//API request for submitted city
+function cityAPI(response) {
+  let cityString = document.querySelector(".city");
+  cityString.innerHTML = response;
+  let unit = "metric";
+  let APIurl = `https://api.shecodes.io/weather/v1/current?query=${response}&key=${apiKey}&units=${unit}`;
+  axios.get(APIurl).then(cityWeather);
+  axios.get(APIurl).then(cityIcon);
+  axios.get(APIurl).then(cityWindSpeed);
+  axios.get(APIurl).then(cityHumidity);
+  time();
+}
+
+//Default city when page is first loaded
+function defaultCity(result) {
+  let city = result;
+  cityAPI(city);
+}
+
+//clean user input city
 function submitCity(event) {
   event.preventDefault();
   //retrieve the user search input
-  let cityString = document.querySelector(".city");
   let cityInput = document.querySelector("#city-input");
   let cityInputClean =
     cityInput.value[0].toUpperCase() + cityInput.value.substring(1);
-  //edit the displayed city string
-  cityString.innerHTML = cityInputClean;
-
-  //API for input city
-  let unit = "metric";
-  // let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputClean}&appid=${apiKey}&units=${unit}`;
-  let APIurl = `https://api.shecodes.io/weather/v1/current?query=${cityInputClean}&key=${apiKey}&units=${unit}`;
-  axios.get(APIurl).then(cityWeather);
-  axios.get(APIurl).then(cityIcon);
-  axios.get(APIurl).then(cityWindSpeed);
-  axios.get(APIurl).then(cityHumidity);
-  time();
+  cityAPI(cityInputClean);
 }
 
-function defaultCity(result) {
-  let cityString = document.querySelector(".city");
-  //edit the displayed city string
-  cityString.innerHTML = result;
-  //API for input city
-  let unit = "metric";
-  // let APIurl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInputClean}&appid=${apiKey}&units=${unit}`;
-  let APIurl = `https://api.shecodes.io/weather/v1/current?query=${result}&key=${apiKey}&units=${unit}`;
-  axios.get(APIurl).then(cityWeather);
-  axios.get(APIurl).then(cityIcon);
-  axios.get(APIurl).then(cityWindSpeed);
-  axios.get(APIurl).then(cityHumidity);
-  time();
-}
-
-//USER'S CURRENT LOCATION
-//display the user's location temperature in the html
+//display the user's location temperature
 function displayLocalTemp(result) {
   let localTemp = Math.round(result.data.temperature.current);
   let temperature = document.querySelector("#tempValue");
@@ -100,28 +90,28 @@ function displayLocalTemp(result) {
   celsiusTemperature = result.data.temperature.current;
 }
 
-//display the user's current locations
+//display the user's current location
 function displayLocation(result) {
   let locationName = result.data.city;
   let cityString = document.querySelector(".city");
   cityString.innerHTML = locationName;
 }
 
-//user location wind speed
+//display the user's location windspeed
 function displayWindSpeed(result) {
   let windSpeed = Math.round(result.data.wind.speed);
   let speedString = document.querySelector("#currentSpeed");
   speedString.innerHTML = windSpeed;
 }
 
-//user location humidity
+//display the user's location humidity
 function displayHumidity(result) {
   let humidity = Math.round(result.data.temperature.humidity);
   let humidString = document.querySelector("#humidityPercent");
   humidString.innerHTML = humidity;
 }
 
-//retrieve corresponding weather icon
+//display the user's location weather icon
 function displayIcon(result) {
   let currentIconURL = result.data.condition.icon_url;
   let currentIcon = document.querySelector("#current-weather-icon");
@@ -130,7 +120,7 @@ function displayIcon(result) {
   />`;
 }
 
-//retrieve coordinates & APIs
+//User location coordinates + API requests
 function coords(response) {
   let lat = response.coords.latitude;
   let lon = response.coords.longitude;
@@ -144,14 +134,14 @@ function coords(response) {
   axios.get(APIurl).then(displayHumidity);
 }
 
-//get user's geolocation
+//Retrieve user's geolocation
 function Userlocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(coords);
   time();
 }
 
-// TEMPERATURE CONVERSION
+//Convert displayed temperature to fahrenheit
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#tempValue");
@@ -161,6 +151,7 @@ function displayFahrenheitTemperature(event) {
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
+//Convert displayed temperature to celsius
 function displayCelsiusTemperature(event) {
   event.preventDefault();
   celsiusLink.classList.add("active");
@@ -169,24 +160,26 @@ function displayCelsiusTemperature(event) {
   temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
+//empty variable
 let celsiusTemperature = null;
 
-//EVENTS - CALL FUNCTIONS
+//EVENTS
 
-//add event to current button
+//Current button
 let currentPosition = document.querySelector("#current-location-button");
 currentPosition.addEventListener("click", Userlocation);
 
-//add event to city form
+//Search form
 let newCity = document.querySelector("#cityForm");
 newCity.addEventListener("submit", submitCity);
 
-//add events to C & F
+//Celsius & Fahrenheit buttons
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
 
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
+//default webpage
 time();
 defaultCity("London");
