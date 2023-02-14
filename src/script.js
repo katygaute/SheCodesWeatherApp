@@ -17,6 +17,13 @@ function time() {
   userTime.innerHTML = time;
 }
 
+function formatForecastDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
 //Retrive submitted city's temperature
 function cityWeather(result) {
   console.log(result);
@@ -30,7 +37,6 @@ function cityWeather(result) {
 //Retrive submitted city's windspeed
 function cityWindSpeed(result) {
   let windSpeed = Math.round(result.data.wind.speed);
-  console.log(windSpeed);
   let speedString = document.querySelector("#currentSpeed");
   speedString.innerHTML = windSpeed;
 }
@@ -38,9 +44,45 @@ function cityWindSpeed(result) {
 //Retrive submitted city's humidity
 function cityHumidity(result) {
   let humidity = Math.round(result.data.temperature.humidity);
-  console.log(humidity);
   let humidString = document.querySelector("#humidityPercent");
   humidString.innerHTML = humidity;
+}
+
+function displayForecast(result) {
+  let forecast = result.data.daily;
+  let forecastElement = document.querySelector(".weather-forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  forecast.forEach(function (forecastday, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col-2">
+       <div class="forecast-day">${formatForecastDay(forecastday.time)}</div>
+        <img class="forecast-icon" src="${forecastday.condition.icon_url}"
+                  alt=""
+                  width="42"></img>
+       <div class="forecast-temp">
+          <span class="forecast-temp-low">${Math.round(
+            forecastday.temperature.minimum
+          )}°</span> |
+          <span class="forecast-temp-high">${Math.round(
+            forecastday.temperature.maximum
+          )}°</span>
+       </div>
+      </div>`;
+    }
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function inputCityCoordinates(result) {
+  let lon = result.data.coordinates.longitude;
+  let lat = result.data.coordinates.latitude;
+  let unit = "metric";
+  let APIurl = `https://api.shecodes.io/weather/v1/forecast?lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
+  axios.get(APIurl).then(displayForecast);
 }
 
 //Retrive submitted city's weather icon
@@ -63,6 +105,7 @@ function cityAPI(response) {
   axios.get(APIurl).then(cityIcon);
   axios.get(APIurl).then(cityWindSpeed);
   axios.get(APIurl).then(cityHumidity);
+  axios.get(APIurl).then(inputCityCoordinates);
   time();
 }
 
@@ -70,7 +113,6 @@ function cityAPI(response) {
 function defaultCity(result) {
   let city = result;
   cityAPI(city);
-  displayForecast();
 }
 
 //clean user input city
@@ -133,6 +175,7 @@ function coords(response) {
   axios.get(APIurl).then(displayIcon);
   axios.get(APIurl).then(displayWindSpeed);
   axios.get(APIurl).then(displayHumidity);
+  axios.get(APIurl).then(inputCityCoordinates);
 }
 
 //Retrieve user's geolocation
@@ -163,28 +206,6 @@ function displayCelsiusTemperature(event) {
 
 //empty variable
 let celsiusTemperature = null;
-
-function displayForecast() {
-  let forecastElement = document.querySelector(".weather-forecast");
-  let forecastHTML = `<div class="row">`;
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col-2">
-       <div class="forecast-day">${day}</div>
-        <img class="forecast-icon" src="http://openweathermap.org/img/wn/50d@2x.png"
-                  alt=""
-                  width="42"></img>
-       <div class="forecast-temp">
-          <span class="forecast-temp-low">9°</span> |
-          <span class="forecast-temp-high">12°</span>
-       </div>
-      </div>`;
-  });
-  forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHTML;
-}
 
 //EVENTS
 
