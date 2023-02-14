@@ -86,26 +86,25 @@ body {
   color: gray;
 }
 
-/* .five-days {
+.weather-forecast {
+  margin-top: 35px;
+  margin-bottom: 20px;
   text-align: center;
-  padding-top: 60px;
-  padding-bottom: 30px;
-  padding-right: 0;
+  color: #000;
 }
 
-.five-days .icon {
-  font-size: 35px;
-  padding: 5px;
+.forecast-day {
+  font-size: 16px;
+  opacity: 0.5;
 }
 
-.five-days .day {
-  font-weight: bold;
+.forecast-temp-low {
+  opacity: 0.5;
 }
 
-.five-days .temp {
-  font-size: 12px;
-  font-weight: lighter;
-} */
+.forecast-temp {
+  font-size: 13px;
+}
 
 #GitHubLink {
   text-align: center;

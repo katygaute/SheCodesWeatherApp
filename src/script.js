@@ -70,6 +70,7 @@ function cityAPI(response) {
 function defaultCity(result) {
   let city = result;
   cityAPI(city);
+  displayForecast();
 }
 
 //clean user input city
@@ -162,6 +163,28 @@ function displayCelsiusTemperature(event) {
 
 //empty variable
 let celsiusTemperature = null;
+
+function displayForecast() {
+  let forecastElement = document.querySelector(".weather-forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-2">
+       <div class="forecast-day">${day}</div>
+        <img class="forecast-icon" src="http://openweathermap.org/img/wn/50d@2x.png"
+                  alt=""
+                  width="42"></img>
+       <div class="forecast-temp">
+          <span class="forecast-temp-low">9°</span> |
+          <span class="forecast-temp-high">12°</span>
+       </div>
+      </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
 
 //EVENTS
 
