@@ -25,7 +25,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="card" style="width: 40rem">
+      <div class="card" style="width: 50rem">
         <form id="cityForm">
           <div class="row">
             <div class="col-6">
@@ -43,6 +43,7 @@
                 type="submit"
                 value="Search"
                 class="form-control btn btn-primary shadow-sm w-10"
+                id="search-button"
               />
             </div>
             <div class="col-3">
@@ -55,74 +56,41 @@
             </div>
           </div>
         </form>
-
         <div class="row">
           <div class="location-info col-6">
             <div class="city"></div>
-            <div class="last-updated">
-               <span id="user-current-time"></span>
-            </div>
+            <div id="user-current-time"></div>
             <div class="temp">
               <span id="tempValue"></span>
               <span class="units">
                 <a href="#" id="celsius-link">°C</a>|<a
                   href="#"
                   id="fahrenheit-link"
-                  >°F</a
-                >
+                  >°F
+                </a>
               </span>
             </div>
           </div>
           <div class="extra-info col-6">
             <div class="icon" id="current-weather-icon">
-              <img
-                src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-night.png"
-              />
+              <img src="" width="500" />
             </div>
             <div class="wind">Wind: <span id="currentSpeed"></span>km/h</div>
             <div class="humidity">
               Humidity: <span id="humidityPercent"></span>%
             </div>
-          </div>
-          <div class="weather-forecast"></div>
-          
-
-              
-              
-              
-  
-            <!-- <div class="+2 col-sm">
-              <div class="icon">🌨️</div>
-              <div class="day">Sat</div>
-              <div class="temp">1°C</div>
-            </div>
-            <div class="+3 col-sm">
-              <div class="icon">☀️</div>
-
-              <div class="day">Sun</div>
-              <div class="temp">3°C</div>
-            </div>
-            <div class="+4 col-sm">
-              <div class="icon">☁️</div>
-              <div class="day">Mon</div>
-              <div class="temp">2°C</div>
-            </div>
-            <div class="+5 col-sm">
-              <div class="icon">☀️</div>
-
-              <div class="day">Tue</div>
-              <div class="temp">2°C</div> -->
-            </div>
+            <div class="weather-forecast"></div>
           </div>
         </div>
+        <footer class="card-footer" id="GitHubLink">
+          <a
+            href="https://github.com/katygaute/SheCodesWeatherApp"
+            target="_blank"
+            >Open-Source code</a
+          >, by Katy Gaute
+        </footer>
       </div>
     </div>
-    <p id="GitHubLink">
-      <a href="https://github.com/katygaute/SheCodesWeatherApp" target="_blank"
-        >Open-Source code</a
-      >, by Katy Gaute
-    </p>
-
     <script src="src/script.js"></script>
   </body>
 </html>

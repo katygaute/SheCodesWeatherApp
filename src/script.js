@@ -75,7 +75,7 @@ function displayForecast(result) {
        <div class="forecast-day">${formatForecastDay(forecastday.time)}</div>
         <img class="forecast-icon" src="${forecastday.condition.icon_url}"
                   alt=""
-                  width="42"></img>
+                  ></img>
        <div class="forecast-temp">
           <span class="forecast-temp-low">${Math.round(
             forecastday.temperature.minimum
@@ -106,7 +106,7 @@ function cityIcon(result) {
   console.log(currentIconURL);
   let currentIcon = document.querySelector("#current-weather-icon");
   currentIcon.innerHTML = `<img
-  src="${currentIconURL}"
+  src="${currentIconURL}" 
   />`;
 }
 

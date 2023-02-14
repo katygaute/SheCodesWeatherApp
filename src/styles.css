@@ -5,8 +5,10 @@ body {
 .card {
   display: block;
   margin: 0 auto;
-  border-color: black;
+  border-color: #113f67;
+  border-width: 4px;
   margin-top: 30px;
+  background-color: #e7eaf6;
 }
 
 #cityForm {
@@ -21,14 +23,15 @@ body {
   font-style: italic;
 }
 
-.search,
-#currentButton {
-  margin-left: 3px;
-  margin-right: 0;
+#search-button {
+  background: #38598b;
+  border-color: #38598b;
 }
 
-#currentButton {
+#current-location-button {
   margin-left: 0px;
+  background: #113f67;
+  border-color: #113f67;
 }
 
 .location-info {
@@ -61,10 +64,10 @@ body {
   cursor: default;
 }
 
-.last-updated {
+#user-current-time {
   font-weight: 200;
   color: gray;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .weather {
@@ -72,15 +75,15 @@ body {
   color: gray;
 }
 
-.extra-info .icon {
+.extra-info #current-weather-icon {
   text-align: right;
-  padding-right: 25px;
+  padding-right: 20px;
   font-size: 60px;
 }
 
 .wind,
 .humidity {
-  font-size: 15px;
+  font-size: 18px;
   padding-right: 15px;
   text-align: right;
   color: gray;
@@ -89,24 +92,34 @@ body {
 .weather-forecast {
   margin-top: 35px;
   margin-bottom: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-bottom: 10px;
   text-align: center;
   color: #000;
 }
 
 .forecast-day {
-  font-size: 16px;
-  opacity: 0.5;
+  font-size: 20px;
+  opacity: 0.7;
 }
 
 .forecast-temp-low {
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .forecast-temp {
-  font-size: 13px;
+  font-size: 16px;
 }
 
+.forecast-icon {
+  width: 60px;
+}
 #GitHubLink {
-  text-align: center;
-  font-size: 15px;
+  font-size: 10px;
+}
+
+.card-footer {
+  background-color: white;
+  border-color: #113f67;
 }
