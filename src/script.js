@@ -3,20 +3,32 @@ let apiKey = "003c1349c7c772f2oc3fe4dtdec8a8bb";
 
 //FUNCTIONS
 
-//Retrieve user's current time
+//Retrieve user's current day & time
 function time() {
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   let currentDate = new Date();
+  let dayNum = currentDate.getDay();
+  let dayName = days[dayNum];
   let hour = currentDate.getHours();
   let minutes = currentDate.getMinutes();
   if (minutes < 10) {
     let zero = "0";
     minutes = zero + minutes;
   }
-  let time = `${hour}:${minutes}`;
+  let time = `${dayName}, ${hour}:${minutes}`;
   let userTime = document.querySelector("#user-current-time");
   userTime.innerHTML = time;
 }
 
+//Format the days in the forecast
 function formatForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -24,6 +36,7 @@ function formatForecastDay(timestamp) {
 
   return days[day];
 }
+
 //Retrive submitted city's temperature
 function cityWeather(result) {
   console.log(result);
@@ -48,6 +61,7 @@ function cityHumidity(result) {
   humidString.innerHTML = humidity;
 }
 
+//Display the forecast of submitted city
 function displayForecast(result) {
   let forecast = result.data.daily;
   let forecastElement = document.querySelector(".weather-forecast");
@@ -77,6 +91,7 @@ function displayForecast(result) {
   forecastElement.innerHTML = forecastHTML;
 }
 
+//Retrieve coordinates of inputed city & forecast API
 function inputCityCoordinates(result) {
   let lon = result.data.coordinates.longitude;
   let lat = result.data.coordinates.latitude;
